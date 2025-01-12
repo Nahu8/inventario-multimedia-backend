@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const DATA_DIR = path.join(__dirname, 'data');
+const DATA_DIR = path.join(__dirname, '../data'); // Ajuste para la estructura de Vercel
 
 // **Helper function** para leer y escribir archivos JSON
 function readJsonFile(filePath) {
@@ -67,7 +67,6 @@ app.post('/api/:category', async (req, res) => {
       res.status(500).send(`Error al agregar un ítem a ${category}: ${err.message}`);
     }
   });
-  
 
 // **PUT: Editar un ítem existente**
 app.put('/api/:category/:id', async (req, res) => {
@@ -109,8 +108,5 @@ app.delete('/api/:category/:id', async (req, res) => {
   }
 });
 
-// Iniciar el servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+// Exporta la aplicación Express para Vercel
+module.exports = app;
